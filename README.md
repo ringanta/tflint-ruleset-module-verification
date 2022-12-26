@@ -1,32 +1,26 @@
 # TFLint Module Signature Ruleset
-[![Build Status](https://github.com/terraform-linters/tflint-ruleset-template/workflows/build/badge.svg?branch=main)](https://github.com/terraform-linters/tflint-ruleset-template/actions)
+[![Build Status](https://github.com/ringanta/tflint-ruleset-module-signature/workflows/build/badge.svg?branch=main)](https://github.com/ringanta/tflint-ruleset-module-signature/actions)
 
 TFlint plugin to validate module sources and signature.
 
 ## Requirements
 
-- TFLint v0.35+
+- TFLint v0.40+
 - Go v1.19
 
 ## Installation
 
-TODO: This template repository does not contain release binaries, so this installation will not work. Please rewrite for your repository. See the "Building the plugin" section to get this template ruleset working.
-
 You can install the plugin with `tflint --init`. Declare a config in `.tflint.hcl` as follows:
 
 ```hcl
-plugin "template" {
+plugin "module-signature" {
   enabled = true
 
   version = "0.1.0"
-  source  = "github.com/terraform-linters/tflint-ruleset-template"
+  source  = "github.com/ringanta/tflint-ruleset-module-signature"
 
   signing_key = <<-KEY
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  mQINBGCqS2YBEADJ7gHktSV5NgUe08hD/uWWPwY07d5WZ1+F9I9SoiK/mtcNGz4P
-  JLrYAIUTMBvrxk3I+kuwhp7MCk7CD/tRVkPRIklONgtKsp8jCke7FB3PuFlP/ptL
-  SlbaXx53FCZSOzCJo9puZajVWydoGfnZi5apddd11Zw1FuJma3YElHZ1A1D2YvrF
-  ...
+
   KEY
 }
 ```
@@ -35,10 +29,7 @@ plugin "template" {
 
 |Name|Description|Severity|Enabled|Link|
 | --- | --- | --- | --- | --- |
-|aws_instance_example_type|Example rule for accessing and evaluating top-level attributes|ERROR|✔||
-|aws_s3_bucket_example_lifecycle_rule|Example rule for accessing top-level/nested blocks and attributes under the blocks|ERROR|✔||
-|google_compute_ssl_policy|Example rule with a custom rule config|WARNING|✔||
-|terraform_backend_type|Example rule for accessing other than resources|ERROR|✔||
+
 
 ## Building the plugin
 
@@ -58,9 +49,16 @@ You can run the built plugin like the following:
 
 ```
 $ cat << EOS > .tflint.hcl
-plugin "template" {
+plugin "module-signature" {
   enabled = true
 }
 EOS
 $ tflint
 ```
+
+## Directory layout
+
+Here is layout of directory of the repository
+
+- `docs` contains documentation of module-signature ruleset
+- `examples` contains list of examples how the rules can be used

@@ -1,7 +1,7 @@
-# TFLint Ruleset Template
+# TFLint Module Signature Ruleset
 [![Build Status](https://github.com/terraform-linters/tflint-ruleset-template/workflows/build/badge.svg?branch=main)](https://github.com/terraform-linters/tflint-ruleset-template/actions)
 
-This is a template repository for building a custom ruleset. You can create a plugin repository from "Use this template". See also [Writing Plugins](https://github.com/terraform-linters/tflint/blob/master/docs/developer-guide/plugins.md).
+TFlint plugin to validate module sources and signature.
 
 ## Requirements
 

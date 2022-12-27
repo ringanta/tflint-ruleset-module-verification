@@ -9,7 +9,6 @@ import (
 	tfaddr "github.com/hashicorp/terraform-registry-address"
 	modulesignature "github.com/ringanta/tflint-ruleset-module-signature/module-signature"
 	"github.com/ringanta/tflint-ruleset-module-signature/project"
-	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -87,7 +86,6 @@ func (r *ModuleSignatureLocalSourceRule) checkModule(runner tflint.Runner, modul
 		if err != nil {
 			return err
 		}
-		logger.Debug(fmt.Sprintf("Source %s", source))
 
 		u, err := url.Parse(source)
 		if err != nil {

@@ -40,7 +40,7 @@ func (r *ModuleSignatureLocalSourceRule) Enabled() bool {
 
 // Severity returns severity of the rule
 func (r *ModuleSignatureLocalSourceRule) Severity() tflint.Severity {
-	return tflint.WARNING
+	return tflint.ERROR
 }
 
 // Link returns the rule reference link
@@ -61,7 +61,7 @@ func (r *ModuleSignatureLocalSourceRule) Check(rr tflint.Runner) error {
 		return nil
 	}
 
-	config := ModuleSignatureLocalSourceRuleConfig{Allow: true}
+	config := ModuleSignatureLocalSourceRuleConfig{Allow: false}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
 		return err
 	}

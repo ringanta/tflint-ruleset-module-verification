@@ -12,43 +12,43 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// ModuleSignatureLocalSourceRule checks local module against certain rules
-type ModuleSignatureLocalSourceRule struct {
+// ModuleVerificationLocalSourceRule checks local module against certain rules
+type ModuleVerificationLocalSourceRule struct {
 	tflint.DefaultRule
 }
 
-// ModuleSignatureLocalSourceRuleConfig is the config structure for the ModuleSignatureLocalSourceRule rule
-type ModuleSignatureLocalSourceRuleConfig struct {
+// ModuleVerificationLocalSourceRuleConfig is the config structure for the ModuleSignatureLocalSourceRule rule
+type ModuleVerificationLocalSourceRuleConfig struct {
 	Allow bool `hclext:"allow,optional"`
 }
 
-// NewModuleSignatureLocalSourceRule returns new rule with default attributes
-func NewModuleSignatureLocalSourceRule() *ModuleSignatureLocalSourceRule {
-	return &ModuleSignatureLocalSourceRule{}
+// NewModuleVerificationLocalSourceRule returns new rule with default attributes
+func NewModuleVerificationLocalSourceRule() *ModuleVerificationLocalSourceRule {
+	return &ModuleVerificationLocalSourceRule{}
 }
 
 // Name returns the rule name
-func (r *ModuleSignatureLocalSourceRule) Name() string {
+func (r *ModuleVerificationLocalSourceRule) Name() string {
 	return "module_signature_local_source"
 }
 
 // Enabled returns whether the rule enabled by default
-func (r *ModuleSignatureLocalSourceRule) Enabled() bool {
+func (r *ModuleVerificationLocalSourceRule) Enabled() bool {
 	return true
 }
 
 // Severity returns severity of the rule
-func (r *ModuleSignatureLocalSourceRule) Severity() tflint.Severity {
+func (r *ModuleVerificationLocalSourceRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *ModuleSignatureLocalSourceRule) Link() string {
+func (r *ModuleVerificationLocalSourceRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 // Check checks if module source is local
-func (r *ModuleSignatureLocalSourceRule) Check(rr tflint.Runner) error {
+func (r *ModuleVerificationLocalSourceRule) Check(rr tflint.Runner) error {
 	runner := modulesignature.NewRunner(rr)
 
 	path, err := runner.GetModulePath()
@@ -60,7 +60,7 @@ func (r *ModuleSignatureLocalSourceRule) Check(rr tflint.Runner) error {
 		return nil
 	}
 
-	config := ModuleSignatureLocalSourceRuleConfig{Allow: false}
+	config := ModuleVerificationLocalSourceRuleConfig{Allow: false}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
 		return err
 	}
@@ -79,7 +79,7 @@ func (r *ModuleSignatureLocalSourceRule) Check(rr tflint.Runner) error {
 	return nil
 }
 
-func (r *ModuleSignatureLocalSourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleSignatureLocalSourceRuleConfig) error {
+func (r *ModuleVerificationLocalSourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleVerificationLocalSourceRuleConfig) error {
 	_, err := tfaddr.ParseModuleSource(module.Source)
 	if err != nil {
 		source, err := getter.Detect(module.Source, filepath.Dir(module.DefRange.Filename), getter.Detectors)

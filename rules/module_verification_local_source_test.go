@@ -7,7 +7,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func TestModuleSignatureLocalSource(t *testing.T) {
+func TestModuleVerificationLocalSource(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
@@ -23,7 +23,7 @@ module "local" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewModuleSignatureLocalSourceRule(),
+					Rule:    NewModuleVerificationLocalSourceRule(),
 					Message: `module "local" should not use local source`,
 					Range: hcl.Range{
 						Filename: "modules.tf",
@@ -50,7 +50,7 @@ rule "module_signature_local_source" {
 		},
 	}
 
-	rule := NewModuleSignatureLocalSourceRule()
+	rule := NewModuleVerificationLocalSourceRule()
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
 			runner := testRunner(t, map[string]string{"modules.tf": tc.Content, ".tflint.hcl": tc.Config})

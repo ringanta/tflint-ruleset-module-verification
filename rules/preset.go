@@ -4,7 +4,7 @@ import "github.com/terraform-linters/tflint-plugin-sdk/tflint"
 
 var PresetRules = map[string][]tflint.Rule{
 	"all": {
-		NewModuleSignatureLocalSourceRule(),
-		NewModuleSignatureRegistrySourceRule(),
+		NewModuleVerificationLocalSourceRule(),
+		NewModuleVerificationRegistrySourceRule(),
 	},
 }

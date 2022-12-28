@@ -11,7 +11,7 @@ func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		RuleSet: &modulesignature.RuleSet{
 			BuiltinRuleSet: tflint.BuiltinRuleSet{
-				Name:    "module-signature",
+				Name:    "module-verification",
 				Version: "0.1.0",
 			},
 			PresetRules: rules.PresetRules,

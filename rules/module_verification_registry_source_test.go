@@ -7,7 +7,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func TestModuleSignatureRegistrySource(t *testing.T) {
+func TestModuleVerificationRegistrySource(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
@@ -16,10 +16,10 @@ func TestModuleSignatureRegistrySource(t *testing.T) {
 	}{
 		{
 			Name:    "deny",
-			Content: testModuleSignatureRegistrySource,
+			Content: testModuleVerificationRegistrySource,
 			Expected: helper.Issues{
 				{
-					Rule:    NewModuleSignatureRegistrySourceRule(),
+					Rule:    NewModuleVerificationRegistrySourceRule(),
 					Message: `module "registry" is not in the list of allowed modules from Terraform Registry`,
 					Range: hcl.Range{
 						Filename: "modules.tf",
@@ -31,7 +31,7 @@ func TestModuleSignatureRegistrySource(t *testing.T) {
 		},
 		{
 			Name:    "allow_list",
-			Content: testModuleSignatureRegistrySource,
+			Content: testModuleVerificationRegistrySource,
 			Config: `
 rule "module_signature_registry_source" {
 	enabled = true
@@ -47,7 +47,7 @@ rule "module_signature_registry_source" {
 		},
 		{
 			Name:    "allow_deny_list",
-			Content: testModuleSignatureRegistrySource,
+			Content: testModuleVerificationRegistrySource,
 			Config: `
 rule "module_signature_registry_source" {
 	enabled = true
@@ -68,7 +68,7 @@ rule "module_signature_registry_source" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewModuleSignatureRegistrySourceRule(),
+					Rule:    NewModuleVerificationRegistrySourceRule(),
 					Message: `module "registry" version "3.18.1" from Terraform Registry is in the deny list`,
 					Range: hcl.Range{
 						Filename: "modules.tf",
@@ -80,7 +80,7 @@ rule "module_signature_registry_source" {
 		},
 		{
 			Name:    "multiple_allow",
-			Content: testModuleSignatureRegistrySource,
+			Content: testModuleVerificationRegistrySource,
 			Config: `
 rule "module_signature_registry_source" {
 	enabled = true
@@ -104,7 +104,7 @@ rule "module_signature_registry_source" {
 		},
 		{
 			Name:    "multiple_deny",
-			Content: testModuleSignatureRegistrySource,
+			Content: testModuleVerificationRegistrySource,
 			Config: `
 rule "module_signature_registry_source" {
 	enabled = true
@@ -132,7 +132,7 @@ rule "module_signature_registry_source" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewModuleSignatureRegistrySourceRule(),
+					Rule:    NewModuleVerificationRegistrySourceRule(),
 					Message: `module "registry" version "3.18.1" from Terraform Registry is in the deny list`,
 					Range: hcl.Range{
 						Filename: "modules.tf",
@@ -144,7 +144,7 @@ rule "module_signature_registry_source" {
 		},
 	}
 
-	rule := NewModuleSignatureRegistrySourceRule()
+	rule := NewModuleVerificationRegistrySourceRule()
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
 			runner := testRunner(t, map[string]string{"modules.tf": tc.Content, ".tflint.hcl": tc.Config})
@@ -158,7 +158,7 @@ rule "module_signature_registry_source" {
 	}
 }
 
-const testModuleSignatureRegistrySource = `
+const testModuleVerificationRegistrySource = `
 module "registry" {
 	source = "terraform-aws-modules/vpc/aws"
 	version = "3.18.1"

@@ -16,8 +16,8 @@ import (
 // See https://github.com/terraform-linters/tflint-ruleset-terraform/blob/ed5566cffeb23892e3e0a3a9bb890972fe2ab1ba/rules/terraform_module_version.go#L15
 var exactVersionRegexp = regexp.MustCompile(`^=?\s*` + `(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`)
 
-// ModuleSignatureRegistrySourceRule checks local module against certain rules
-type ModuleSignatureRegistrySourceRule struct {
+// ModuleVerificationRegistrySourceRule checks local module against certain rules
+type ModuleVerificationRegistrySourceRule struct {
 	tflint.DefaultRule
 }
 
@@ -27,39 +27,39 @@ type ListItemConfig struct {
 	Versions []string `hclext:"versions,optional"`
 }
 
-// ModuleSignatureRegistrySourceRuleConfig is the config structure for the ModuleSignatureRegistrySourceRule rule
-type ModuleSignatureRegistrySourceRuleConfig struct {
+// ModuleVerificationRegistrySourceRuleConfig is the config structure for the ModuleSignatureRegistrySourceRule rule
+type ModuleVerificationRegistrySourceRuleConfig struct {
 	AllowList []*ListItemConfig `hclext:"allowed_module,block"`
 	DenyList  []*ListItemConfig `hclext:"denied_module,block"`
 }
 
-// NewModuleSignatureRegistrySourceRule returns new rule with default attributes
-func NewModuleSignatureRegistrySourceRule() *ModuleSignatureRegistrySourceRule {
-	return &ModuleSignatureRegistrySourceRule{}
+// NewModuleVerificationRegistrySourceRule returns new rule with default attributes
+func NewModuleVerificationRegistrySourceRule() *ModuleVerificationRegistrySourceRule {
+	return &ModuleVerificationRegistrySourceRule{}
 }
 
 // Name returns the rule name
-func (r *ModuleSignatureRegistrySourceRule) Name() string {
+func (r *ModuleVerificationRegistrySourceRule) Name() string {
 	return "module_signature_registry_source"
 }
 
 // Enabled returns whether the rule enabled by default
-func (r *ModuleSignatureRegistrySourceRule) Enabled() bool {
+func (r *ModuleVerificationRegistrySourceRule) Enabled() bool {
 	return true
 }
 
 // Severity returns severity of the rule
-func (r *ModuleSignatureRegistrySourceRule) Severity() tflint.Severity {
+func (r *ModuleVerificationRegistrySourceRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *ModuleSignatureRegistrySourceRule) Link() string {
+func (r *ModuleVerificationRegistrySourceRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 // Check checks if module source is Registry and validate the source against defined rules
-func (r *ModuleSignatureRegistrySourceRule) Check(rr tflint.Runner) error {
+func (r *ModuleVerificationRegistrySourceRule) Check(rr tflint.Runner) error {
 	runner := modulesignature.NewRunner(rr)
 
 	path, err := runner.GetModulePath()
@@ -71,7 +71,7 @@ func (r *ModuleSignatureRegistrySourceRule) Check(rr tflint.Runner) error {
 		return nil
 	}
 
-	config := ModuleSignatureRegistrySourceRuleConfig{AllowList: make([]*ListItemConfig, 0), DenyList: make([]*ListItemConfig, 0)}
+	config := ModuleVerificationRegistrySourceRuleConfig{AllowList: make([]*ListItemConfig, 0), DenyList: make([]*ListItemConfig, 0)}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func (r *ModuleSignatureRegistrySourceRule) Check(rr tflint.Runner) error {
 	return nil
 }
 
-func (r *ModuleSignatureRegistrySourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleSignatureRegistrySourceRuleConfig) error {
+func (r *ModuleVerificationRegistrySourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleVerificationRegistrySourceRuleConfig) error {
 	_, err := tfaddr.ParseModuleSource(module.Source)
 	if err != nil {
 		return nil

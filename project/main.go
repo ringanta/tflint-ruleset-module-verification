@@ -7,5 +7,5 @@ const Version string = "0.1.0"
 
 // ReferenceLink returns the rule reference link
 func ReferenceLink(name string) string {
-	return fmt.Sprintf("https://github.com/ringanta/tflint-ruleset-module-signature/blob/v%s/docs/rules/%s.md", Version, name)
+	return fmt.Sprintf("https://github.com/ringanta/tflint-ruleset-module-verification/blob/v%s/docs/rules/%s.md", Version, name)
 }

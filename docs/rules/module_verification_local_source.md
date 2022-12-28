@@ -1,6 +1,19 @@
 # module_verification_local_source
 
-Disallow usage of locally sourced module.
+Explicitly allow locally sourced module.
+
+## Configuration
+
+Name | Description | Default | Type
+--- | --- | --- | ---
+allowed_modules | List of allowed modules prefix | [] | List of string
+
+```hcl
+rule "terraform_module_version" {
+  enabled = true
+  allowed_modules = [] # default
+}
+```
 
 ## Example
 

@@ -15,7 +15,7 @@ func TestModuleVerificationLocalSource(t *testing.T) {
 		Expected helper.Issues
 	}{
 		{
-			Name: "local_deny",
+			Name: "deny",
 			Content: `
 module "local" {
 	source = "../.."
@@ -34,16 +34,19 @@ module "local" {
 			},
 		},
 		{
-			Name: "local_allow",
+			Name: "allow",
 			Content: `
 module "local" {
 	source = "../.."
 }
 `,
 			Config: `
-rule "module_signature_local_source" {
+rule "module_verification_local_source" {
 	enabled = true
-	allow = true
+	
+	allowed_modules = [
+		"../..",
+	]
 }			
 `,
 			Expected: helper.Issues{},

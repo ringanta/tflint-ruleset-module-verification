@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 	"path/filepath"
+	"strings"
 
 	"github.com/hashicorp/go-getter"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
@@ -19,7 +20,7 @@ type ModuleVerificationLocalSourceRule struct {
 
 // ModuleVerificationLocalSourceRuleConfig is the config structure for the ModuleSignatureLocalSourceRule rule
 type ModuleVerificationLocalSourceRuleConfig struct {
-	Allow bool `hclext:"allow,optional"`
+	AllowList []string `hclext:"allowed_modules,optional"`
 }
 
 // NewModuleVerificationLocalSourceRule returns new rule with default attributes
@@ -29,7 +30,7 @@ func NewModuleVerificationLocalSourceRule() *ModuleVerificationLocalSourceRule {
 
 // Name returns the rule name
 func (r *ModuleVerificationLocalSourceRule) Name() string {
-	return "module_signature_local_source"
+	return "module_verification_local_source"
 }
 
 // Enabled returns whether the rule enabled by default
@@ -60,7 +61,7 @@ func (r *ModuleVerificationLocalSourceRule) Check(rr tflint.Runner) error {
 		return nil
 	}
 
-	config := ModuleVerificationLocalSourceRuleConfig{Allow: false}
+	config := ModuleVerificationLocalSourceRuleConfig{AllowList: make([]string, 0)}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
 		return err
 	}
@@ -92,7 +93,13 @@ func (r *ModuleVerificationLocalSourceRule) checkModule(runner tflint.Runner, mo
 			return err
 		}
 
-		if u.Scheme == "file" && !config.Allow {
+		if u.Scheme == "file" {
+			for _, item := range config.AllowList {
+				if strings.HasPrefix(module.Source, item) {
+					return nil
+				}
+			}
+
 			return runner.EmitIssue(
 				r,
 				fmt.Sprintf("module %q should not use local source", module.Name),

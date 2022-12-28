@@ -1,6 +1,6 @@
-# module_verification_local_source
+# module_verification_nonregistry_source
 
-Explicitly allow locally sourced module.
+Explicitly allows non Terraform Registry modules.
 
 ## Configuration
 
@@ -9,7 +9,7 @@ Name | Description | Default | Type
 allowed_modules | List of allowed modules prefix | [] | List of string
 
 ```hcl
-rule "module_verification_local_source" {
+rule "module_verification_nonregistry_source" {
   enabled = true
   allowed_modules = [] # default
 }
@@ -19,14 +19,14 @@ rule "module_verification_local_source" {
 
 ```
 tflint
-1 issue(s) found:
+2 issue(s) found:
 
-Error: module "local_fail" should not use local source (module_verification_local_source)
+Error: module "local_fail" source is not on the allowed modules list (module_verification_nonregistry_source)
 
   on main.tf line 1:
    1: module "local_fail" {
 
-Reference: https://github.com/ringanta/tflint-ruleset-module-verification/blob/v0.1.0/docs/rules/module_verification_local_source.md
+Reference: https://github.com/ringanta/tflint-ruleset-module-verification/blob/v0.1.0/docs/rules/module_verification_nonregistry_source.md
 ```
 
 ## Why
@@ -37,7 +37,7 @@ Module is external code that needs to be vet before being used. Explicitly allow
 
 Use the following TFLint config to explicitly allow module from local source
 ```
-rule "module_signature_local_source" {
+rule "module_verification_nonregistry_source" {
 	enabled = true
 
     allowed_modules = [

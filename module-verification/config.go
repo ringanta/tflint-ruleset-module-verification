@@ -1,4 +1,4 @@
-package modulesignature
+package moduleverification
 
 // Config is the configuration for the ruleset.
 type Config struct {

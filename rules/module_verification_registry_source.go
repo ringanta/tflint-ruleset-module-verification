@@ -7,8 +7,8 @@ import (
 
 	"github.com/hashicorp/go-version"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	modulesignature "github.com/ringanta/tflint-ruleset-module-signature/module-signature"
-	"github.com/ringanta/tflint-ruleset-module-signature/project"
+	modulesignature "github.com/ringanta/tflint-ruleset-module-verification/module-verification"
+	"github.com/ringanta/tflint-ruleset-module-verification/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )

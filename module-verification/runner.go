@@ -1,4 +1,4 @@
-package modulesignature
+package moduleverification
 
 import (
 	"github.com/hashicorp/hcl/v2"

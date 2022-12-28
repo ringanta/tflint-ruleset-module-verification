@@ -7,8 +7,8 @@ import (
 
 	"github.com/hashicorp/go-getter"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	modulesignature "github.com/ringanta/tflint-ruleset-module-signature/module-signature"
-	"github.com/ringanta/tflint-ruleset-module-signature/project"
+	moduleverification "github.com/ringanta/tflint-ruleset-module-verification/module-verification"
+	"github.com/ringanta/tflint-ruleset-module-verification/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -49,7 +49,7 @@ func (r *ModuleVerificationLocalSourceRule) Link() string {
 
 // Check checks if module source is local
 func (r *ModuleVerificationLocalSourceRule) Check(rr tflint.Runner) error {
-	runner := modulesignature.NewRunner(rr)
+	runner := moduleverification.NewRunner(rr)
 
 	path, err := runner.GetModulePath()
 	if err != nil {
@@ -79,7 +79,7 @@ func (r *ModuleVerificationLocalSourceRule) Check(rr tflint.Runner) error {
 	return nil
 }
 
-func (r *ModuleVerificationLocalSourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleVerificationLocalSourceRuleConfig) error {
+func (r *ModuleVerificationLocalSourceRule) checkModule(runner tflint.Runner, module *moduleverification.ModuleCall, config ModuleVerificationLocalSourceRuleConfig) error {
 	_, err := tfaddr.ParseModuleSource(module.Source)
 	if err != nil {
 		source, err := getter.Detect(module.Source, filepath.Dir(module.DefRange.Filename), getter.Detectors)

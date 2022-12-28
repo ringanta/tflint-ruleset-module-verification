@@ -1,4 +1,4 @@
-module github.com/ringanta/tflint-ruleset-module-signature
+module github.com/ringanta/tflint-ruleset-module-verification
 
 go 1.19
 

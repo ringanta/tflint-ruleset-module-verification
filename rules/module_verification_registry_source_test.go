@@ -33,7 +33,7 @@ func TestModuleVerificationRegistrySource(t *testing.T) {
 			Name:    "allow_list",
 			Content: testModuleVerificationRegistrySource,
 			Config: `
-rule "module_signature_registry_source" {
+rule "module_verification_registry_source" {
 	enabled = true
 	allowed_module {
 		source = "terraform-aws-modules/vpc"
@@ -49,7 +49,7 @@ rule "module_signature_registry_source" {
 			Name:    "allow_deny_list",
 			Content: testModuleVerificationRegistrySource,
 			Config: `
-rule "module_signature_registry_source" {
+rule "module_verification_registry_source" {
 	enabled = true
 	allowed_module {
 		source = "terraform-aws-modules/vpc"
@@ -82,7 +82,7 @@ rule "module_signature_registry_source" {
 			Name:    "multiple_allow",
 			Content: testModuleVerificationRegistrySource,
 			Config: `
-rule "module_signature_registry_source" {
+rule "module_verification_registry_source" {
 	enabled = true
 
 	allowed_module {
@@ -106,7 +106,7 @@ rule "module_signature_registry_source" {
 			Name:    "multiple_deny",
 			Content: testModuleVerificationRegistrySource,
 			Config: `
-rule "module_signature_registry_source" {
+rule "module_verification_registry_source" {
 	enabled = true
 	allowed_module {
 		source = "terraform-aws-modules/vpc"

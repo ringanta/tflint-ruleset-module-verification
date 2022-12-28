@@ -8,4 +8,4 @@ build:
 
 install: build
 	mkdir -p ~/.tflint.d/plugins
-	mv ./tflint-ruleset-module-signature ~/.tflint.d/plugins
+	mv ./tflint-ruleset-module-verification ~/.tflint.d/plugins

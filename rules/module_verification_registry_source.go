@@ -7,7 +7,7 @@ import (
 
 	"github.com/hashicorp/go-version"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	modulesignature "github.com/ringanta/tflint-ruleset-module-verification/module-verification"
+	moduleverification "github.com/ringanta/tflint-ruleset-module-verification/module-verification"
 	"github.com/ringanta/tflint-ruleset-module-verification/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -27,7 +27,7 @@ type ListItemConfig struct {
 	Versions []string `hclext:"versions,optional"`
 }
 
-// ModuleVerificationRegistrySourceRuleConfig is the config structure for the ModuleSignatureRegistrySourceRule rule
+// ModuleVerificationRegistrySourceRuleConfig is the config structure for the ModuleVerificationRegistrySourceRule rule
 type ModuleVerificationRegistrySourceRuleConfig struct {
 	AllowList []*ListItemConfig `hclext:"allowed_module,block"`
 	DenyList  []*ListItemConfig `hclext:"denied_module,block"`
@@ -40,7 +40,7 @@ func NewModuleVerificationRegistrySourceRule() *ModuleVerificationRegistrySource
 
 // Name returns the rule name
 func (r *ModuleVerificationRegistrySourceRule) Name() string {
-	return "module_signature_registry_source"
+	return "module_verification_registry_source"
 }
 
 // Enabled returns whether the rule enabled by default
@@ -60,7 +60,7 @@ func (r *ModuleVerificationRegistrySourceRule) Link() string {
 
 // Check checks if module source is Registry and validate the source against defined rules
 func (r *ModuleVerificationRegistrySourceRule) Check(rr tflint.Runner) error {
-	runner := modulesignature.NewRunner(rr)
+	runner := moduleverification.NewRunner(rr)
 
 	path, err := runner.GetModulePath()
 	if err != nil {
@@ -92,7 +92,7 @@ func (r *ModuleVerificationRegistrySourceRule) Check(rr tflint.Runner) error {
 	return nil
 }
 
-func (r *ModuleVerificationRegistrySourceRule) checkModule(runner tflint.Runner, module *modulesignature.ModuleCall, config ModuleVerificationRegistrySourceRuleConfig) error {
+func (r *ModuleVerificationRegistrySourceRule) checkModule(runner tflint.Runner, module *moduleverification.ModuleCall, config ModuleVerificationRegistrySourceRuleConfig) error {
 	_, err := tfaddr.ParseModuleSource(module.Source)
 	if err != nil {
 		return nil

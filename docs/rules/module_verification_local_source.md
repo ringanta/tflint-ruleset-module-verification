@@ -9,7 +9,7 @@ Name | Description | Default | Type
 allowed_modules | List of allowed modules prefix | [] | List of string
 
 ```hcl
-rule "terraform_module_version" {
+rule "module_verification_local_source" {
   enabled = true
   allowed_modules = [] # default
 }
@@ -21,12 +21,12 @@ rule "terraform_module_version" {
 tflint
 1 issue(s) found:
 
-Error: module "local_fail" should not use local source (module_signature_local_source)
+Error: module "local_fail" should not use local source (module_verification_local_source)
 
   on main.tf line 1:
    1: module "local_fail" {
 
-Reference: https://github.com/ringanta/tflint-ruleset-module-signature/blob/v0.1.0/docs/rules/module_signature_local_source.md
+Reference: https://github.com/ringanta/tflint-ruleset-module-verification/blob/v0.1.0/docs/rules/module_verification_local_source.md
 ```
 
 ## Why

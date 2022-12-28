@@ -1,6 +1,6 @@
-# Local Source Example
+# Registry Source Example
 
-An example of verifying local module usage
+An example of verifying module usage from Terraform Registry.
 
 ## Requirement
 

@@ -1,7 +1,8 @@
 # TFLint Module Verification Ruleset
 [![Build Status](https://github.com/ringanta/tflint-ruleset-module-verification/workflows/build/badge.svg?branch=main)](https://github.com/ringanta/tflint-ruleset-module-verification/actions)
 
-TFlint plugin to validate module sources and signature.
+TFlint plugin to validate modules source.
+The plugin contains ruleset to validate both Terraform Registry and non Terraform Registry modules.
 
 ## Requirements
 
@@ -27,9 +28,7 @@ plugin "module-verification" {
 
 ## Rules
 
-|Name|Description|Severity|Enabled|Link|
-| --- | --- | --- | --- | --- |
-
+See [Rules](./docs/rules/README.md)
 
 ## Building the plugin
 

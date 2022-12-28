@@ -22,7 +22,13 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version-file: "go.mod"
+          cache: true
       - name: Run tests
         run: make test
       - name: Run build
         run: make build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: tflint-ruleset-module-verification-${{ matrix.os }}
+          path: tflint-ruleset-module-verification

@@ -19,10 +19,6 @@ plugin "module-verification" {
 
   version = "0.1.0"
   source  = "github.com/ringanta/tflint-ruleset-module-verification"
-
-  signing_key = <<-KEY
-
-  KEY
 }
 ```
 

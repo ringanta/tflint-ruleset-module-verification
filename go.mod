@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/hashicorp/go-version v1.6.0
-	github.com/hashicorp/hcl/v2 v2.15.0
+	github.com/hashicorp/hcl/v2 v2.16.2
 	github.com/hashicorp/terraform-registry-address v0.1.0
 	github.com/terraform-linters/tflint-plugin-sdk v0.15.0
 )
